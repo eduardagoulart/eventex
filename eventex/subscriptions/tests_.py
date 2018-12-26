@@ -12,3 +12,15 @@ class SubscribeTest(TestCase):
     def test_template(self):
         """Must use subscriptions/subsciption_form.html"""
         self.assertTemplateUsed(self.resp, 'subscriptions/subscription_form.html')
+
+    def test_html(self):
+        """HTML must contain input tags"""
+        self.assertContains(self.resp, '<form')
+        self.assertContains(self.resp, '<input', 6)
+        self.assertContains(self.resp, 'type="text"', 3)
+        self.assertContains(self.resp, 'type="email"')
+        self.assertContains(self.resp, 'type="submit"')
+
+    def test_csrf(self):
+        """HTML must containd crsf"""
+        self.assertContains(self.resp, 'csrfmiddlewaretoken')
