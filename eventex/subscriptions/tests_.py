@@ -97,3 +97,10 @@ class SubscribeInvalidPost(TestCase):
     def test_form_has_errors(self):
         form = self.resp.context['form']
         self.assertTrue(form.errors)
+
+
+class SubscribeSuccessMessage(TestCase):
+    def test_message(self):
+        data = dict(name='Eduarda', cpf='012345678890', email='goularteduarda.a@gmail.com', phone='329915426404')
+        reponse = self.client.post('/inscricao/', data, follow=True)
+        self.assertContains(reponse, 'Inscrição Realizada com Sucesso')
